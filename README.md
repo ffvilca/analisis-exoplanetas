@@ -1,4 +1,5 @@
 # Analisis de Exoplanetas
 
-Trabajo de investigación para comprender el uso de diferentes softwares de manejo de datos.
-Para esta investigación los datos utilizados serán sobre 4843 exoplanetas descubiertos hasta el minuto.
+Creación del repositorio para el trabajo de investigación con el fin de para comprender el uso de diferentes softwares de manejo de datos.
+
+Los datos utilizados en la creación de este informe serán sobre 4843 exoplanetas descubiertos por el ser humano.
