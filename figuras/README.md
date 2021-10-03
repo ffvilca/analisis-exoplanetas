@@ -1,11 +1,4 @@
-# Esto es un repositorio de Prueba
+# Figuras
 
-Vamos a utilizarlo para mostrar como usar git y Github. Puedo poner *texto en cursiva*. Puedo poner **texto en negrita**.
-
-## Este es un subtitulo
-
-Voy a agregar una línea que escribí localmente en mi computador.
-
-Otra línea más
-
-Esta línea la agregue en GitHub
+En esta carpeta podrás encontrar todos las imágenes o gráficos que serám utilizados en la creación del informe final de este trabajo.
+Aquí se especificará la fuente de cada uno de ellos.
