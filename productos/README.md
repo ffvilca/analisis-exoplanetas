@@ -1,11 +1,3 @@
-# Esto es un repositorio de Prueba
+# Producto
 
-Vamos a utilizarlo para mostrar como usar git y Github. Puedo poner *texto en cursiva*. Puedo poner **texto en negrita**.
-
-## Este es un subtitulo
-
-Voy a agregar una línea que escribí localmente en mi computador.
-
-Otra línea más
-
-Esta línea la agregue en GitHub
+En esta carpeta se almacenarán todos los resultados finales de este trabajo de investigación, ya sea el informe escrito o la presentación final
