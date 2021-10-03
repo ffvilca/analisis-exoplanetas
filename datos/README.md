@@ -1,11 +1,9 @@
-# Esto es un repositorio de Prueba
+# Datos
 
-Vamos a utilizarlo para mostrar como usar git y Github. Puedo poner *texto en cursiva*. Puedo poner **texto en negrita**.
+En este carpeta se guardaran todos los datos utilizados para la realización de este informe
 
-## Este es un subtitulo
+## Catálogo de exoplanetas
 
-Voy a agregar una línea que escribí localmente en mi computador.
+Datos obtenidos de la página https://www.datastro.eu/pages/home/ en la que nos muestran diferentes características sobre 4843 exoplanetas descubiertos por el ser humano.
 
-Otra línea más
-
-Esta línea la agregue en GitHub
+Estos datos no se han modificado y se encuentran de la misma manera de la que pueden ser descargados a partir de la página
