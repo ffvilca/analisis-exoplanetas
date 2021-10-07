@@ -1,0 +1,37 @@
+---
+title: "Un ejemplo de titulo en Rmarkdown"
+author: "Francisca-Vilca"
+date: "07-10-2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+# paquetes a usar
+# bloque de opciones de como se verá mi HTML
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+
+gapminder <- readr::read_csv("https://raw.githubusercontent.com/rivaquiroga/informe-analisis/main/datos/gapminder.csv?token=AHPXJMBV2HUDFU3NHSBH3VDBNCADO")
+
+```
+
+## Un subtitulo
+
+Para este ejemplo utilizaremos datos del proyecto [Gapminder](https://www.gapminder.org/) creado por Hans Rosling. Incluye datos sobre `r length(unique(gapminder$pais))` paises entre `r min(gapminder$anio)` y `r max(gapminder$anio)`.
+
+## Un gráfico
+
+Veamos la evolución del Producto Interno Bruto (PIB) de Chile en este périodo:
+
+```{r echo=FALSE}
+
+pais <- gapminder[gapminder$pais == "Chile", ]
+
+ggplot(pais, aes(x= anio, y = pib_per_capita))+
+  geom_col(fill = "turquoise3")
+
+```
+
