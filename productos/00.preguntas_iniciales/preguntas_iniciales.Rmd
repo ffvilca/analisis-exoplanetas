@@ -1,0 +1,42 @@
+---
+title: "<center>Preguntas Iniciales</center>"
+subtitle: "<center>Francisca Vilca Sánchez</center>"
+autor: ""
+date: "<center>`r format(Sys.Date(), '%d/%m/%Y')`</center>"
+output: 
+    html_document:
+        toc: false
+        theme:
+            bg: '#202123'      # Color de fondo
+            fg: '#B8BCC2'      # Color fuente y lineas.
+            primary: "chartreuse" # Resaltado
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+# paquetes a usar
+# bloque de opciones de como se verá mi HTML
+knitr::opts_chunk$set(echo = TRUE)
+
+require(rio)
+
+exo_planetas <- import(file.choose())
+
+```
+
+Como se puede obervar en [Catálogo de Exoplanetas](https://www.datastro.eu/explore/dataset/exoplaneteu_catalog-1/information/?sort=mass&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJwaWUiLCJmdW5jIjoiQ09VTlQiLCJ5QXhpcyI6Im1hc3MiLCJzY2llbnRpZmljRGlzcGxheSI6dHJ1ZSwiY29sb3IiOiJyYW5nZS1SZFlsR24iLCJwb3NpdGlvbiI6ImNlbnRlciJ9XSwieEF4aXMiOiJkZXRlY3Rpb25fdHlwZSIsIm1heHBvaW50cyI6IiIsInRpbWVzY2FsZSI6IiIsInNvcnQiOiJzZXJpZTEtMSIsInNlcmllc0JyZWFrZG93biI6IiIsInNlcmllc0JyZWFrZG93blRpbWVzY2FsZSI6IiIsImNvbmZpZyI6eyJkYXRhc2V0IjoiZXhvcGxhbmV0ZXVfY2F0YWxvZy0xIiwib3B0aW9ucyI6eyJzb3J0IjoidXBkYXRlZCJ9fX1dLCJ0aW1lc2NhbGUiOiIiLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D) publicado por *Exoplaneta.eu*. Se tiene una base de datos con `r length(names(exo_planetas))` variables sobre  `r length(unique(exo_planetas$Name))` planetas. Claramente, al tener tantos datos se pueden hacer múltiples ánalisis sobre la base, sin embargo, algunas preguntas que pueden ser interesante de responder son:
+
+1. Como el objetivo del informe, es buscar exoplanetas con las características similares a la Tierra, un parámetro interesante de analizar es buscar a aquellos con el **périodo (día y/o año)** más similar al de la Tierra
+
+2. De la mano con la pregunta anterior sería, ¿Cuáles son los exoplanetas con la **temperatura** más similar a la de la Tierra?
+
+3. O ¿Cuáles son los exoplanetas con el **radio** más similar a la de la Tierra?
+
+4. También nos interesaría saber, ¿Cuáles son los exoplanetas que poseen las **móleculas necesarias para la vida humana**?
+
+5. Y por último, lo interesante sería saber si ¿Existe algún exoplaneta que sea lo más similar a la Tierra, en **todos los parámetros mencionados anteriormente**?
+
+Estas preguntas son para dar inicio a la investigación y análisis de este proyecto, las cuales pueden ir siendo modificadas, a medida que se va trabajando con los datos y la estructura que va teniendo este informe
