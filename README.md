@@ -8,10 +8,18 @@ Los datos utilizados en la creación de este informe serán sobre 4843 exoplanet
 
 La estructura de este repositorio será mediante la utilización de subcarpetas:
 
-  a) ***Datos***: esta carpeta contendrá todos los datos y fuentes a utilizar en este repositorio
+#### [Datos](https://ffvilca.github.io/analisis-exoplanetas/datos/)
+
+Esta carpeta contendrá todos los datos y fuentes a utilizar en este repositorio
   
-  b) ***Código***: esta carpeta almacenará el código con el que serán analizados nuestros datos
+#### [Código](https://ffvilca.github.io/analisis-exoplanetas/codigo/)
+
+Esta  carpeta almacenará el código con el que serán analizados nuestros datos
   
-  c) ***Figuras***: en esta carpeta estarán todos los gráficos o imágenes que serán visualizados en el informa de este trabajo
+#### [Figuras](https://ffvilca.github.io/analisis-exoplanetas/figuras/) 
+
+En esta carpeta estarán todos los gráficos o imágenes que serán visualizados en el informa de este trabajo
   
-  d) ***Productos***: esta carpeta tendrá los resultados finales de todo el trabajo abordado a lo largo de este repositorio
+#### [Productos](https://ffvilca.github.io/analisis-exoplanetas/productos/)
+
+Esta carpeta tendrá los resultados finales de todo el trabajo abordado a lo largo de este repositorio
