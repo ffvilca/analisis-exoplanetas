@@ -7,9 +7,9 @@ output:
     html_document:
         toc: false
         theme:
-            bg: '#202123'      # Color de fondo
-            fg: '#B8BCC2'      # Color fuente y lineas.
-            primary: "chartreuse" # Resaltado
+            bg: 'darkblue'      # Color de fondo
+            fg: 'ghostwhite'      # Color fuente y lineas.
+            primary: "gold" # Resaltado
 editor_options: 
   chunk_output_type: console
   markdown: 
