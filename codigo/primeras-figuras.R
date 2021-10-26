@@ -49,4 +49,34 @@ ggsave("figuras/dispersion_pib-expvida_gapminder.png", height = 7, width = 10)
 
 desarrollo |> 
   filter(country == "Chile") |> 
+  ggplot(aes(x = year, y = gdpPercap)) +
+  geom_col(fill = "turquoise3") +
+  theme_minimal() +
+  labs(title = "Evolución del PIB en Chile (1952 - 2007)",
+       y = "PIB percapita en dolares",
+       x = NULL)+
+  scale_y_continuous(labels = scales::dollar)+
+  geom_text(aes(label = round(gdpPercap)), vjust = -0.5)+ # sirve para poner etiquetas
+  scale_x_continuous(breaks = seq(1952,2007, by = 10))
     
+ggsave("figuras/columnas_pib-chile.png", height = 7, width = 10)
+
+# version alternativa
+
+desarrollo |> 
+  filter(country == "Chile") |> 
+  ggplot(aes(x = year, y = gdpPercap)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Evolución del PIB en Chile (1952 - 2007)",
+       y = "PIB percapita en dolares",
+       x = NULL)+
+  scale_y_continuous(labels = scales::dollar)+
+  geom_text(aes(label = round(gdpPercap)), vjust = -0.8, hjust = 1)+
+  scale_x_continuous(limits = c(1945,2010), breaks = seq(1945,2010,10))
+
+# geom_text sirve para poner etiquetas
+
+ggsave("figuras/linea_pib-chile.png", height = 7, width = 10)
+
