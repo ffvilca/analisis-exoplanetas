@@ -1,0 +1,159 @@
+# ACTIVIDAD 10 ------------------------------------------------------------
+
+# En los siguientes gráficos lo que nos interesará será buscar a aquellos 
+# exoplanetas con las caracteristicas más similares a las de la Tierra, por lo 
+# que para cada gráfico seleccionaremos una característica de interes y 
+# compararemos con la Tierra
+
+# PAQUETES REQUERIDOS ----
+
+require(ggplot2)
+require(plotly)
+require(dplyr)
+require(gghighlight)
+require(ggtext)
+
+# Primero recordemos como son nuestros datos
+
+View(exo_planetas)
+names(exo_planetas)
+str(exo_planetas)
+
+## PERIODO ORBITAL EN DIAs -------------------------------------------------------------
+
+# Ahora llamaremos a nuestra base de datos
+
+# Para analizar solo la variable del périodo usando la librería dplyr crearemos
+# una base en la que nos sea más fácil trabajar
+
+periodo <- exo_planetas |> 
+  rename(nombre = Name, periodo_dias = `Period (day)`) |> 
+  select(nombre,periodo_dias) |> 
+  na.omit()
+
+View(periodo)
+
+periodo |> 
+  arrange(periodo_dias) |> 
+  filter(periodo_dias >= 360 & periodo_dias <= 400) |>  
+  ggplot(aes(nombre, temperaturaC, color=nombre))+
+  geom_point(size = 5)+
+  scale_color_manual(values = rainbow(21))+
+  labs(x = "Exoplanetas",
+       y = "Temperatura (ºC)",
+       title = "Exoplanetas con Temperatura similar a la Tierra",
+       subtitle = "Se considera una temperatura de entre los -5ºC a los 42ºC",
+       caption = "Datos extraídos de http://exoplanet.eu",
+       color = "Exoplanetas")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  theme_light()
+
+grafico2
+
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
+       height = 7, width = 9)
+
+
+
+## TEMPERATURA -------------------------------------------------------------
+
+# Para esta variable haremos algo similar, entonces:
+
+temperatura <- exo_planetas |> 
+  rename(nombre = Name, temperatura = `Temp calculated (K)`) |> 
+  mutate(temperaturaC = (temperatura-273)) |> 
+  select(nombre,temperaturaC) |> 
+  na.omit()
+
+View(temperatura)  
+
+# Sabemos que la vida en la Tierra para ser posible debe tener una Temperatura 
+# de entre los 15º-39ºC, por lo que buscamos exoplanetas dentro de ese rango, de
+# aquellos planetas que tenemos información están:
+
+grafico2 <- temperatura |> 
+  arrange(temperaturaC) |> 
+  filter(temperaturaC >= -5 & temperaturaC <= 42) |>  
+  ggplot(aes(nombre, temperaturaC, color=nombre))+
+  geom_point(size = 5)+
+  scale_color_manual(values = rainbow(21))+
+  labs(x = "Exoplanetas",
+       y = "Temperatura (ºC)",
+       title = "Exoplanetas con Temperatura similar a la Tierra",
+       subtitle = "Se considera una temperatura de entre los -5ºC a los 42ºC",
+       caption = "Datos extraídos de http://exoplanet.eu",
+       color = "Exoplanetas")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  theme_light()
+
+grafico2
+
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
+       height = 7, width = 9)
+
+ggplotly(grafico1)
+
+
+## RADIO ------------------------------------------------------------------
+
+radios <- exo_planetas |> 
+  rename(nombre = Name, radio = `Radius (R Jup / R Earth)`) |> 
+  select(nombre,radio) |> 
+  na.omit()
+
+
+## MOLECULAS ---------------------------------------------------------------
+
+moleculas_para_la_vida <- exo_planetas |> 
+  rename(nombre = Name, moleculas = `Molecules`) |> 
+  select(nombre,moleculas) |> 
+  na.omit()
+
+## MASA --------------------------------------------------------------------
+
+# Una forma de obtener la masa del planeta es comparandolo directamente con la 
+# masa de Júpiter, ya que es un valor conocido y que nos puede entregar mucha 
+# informacion por lo que haremos algunas transformaciones a la masa entregada por
+# la base, para que sea más facil la comparación, recordemos
+# que segun un articulo https://www.europapress.es/ciencia/astronomia/noticia-cual-tamano-minimo-planeta-pueda-ser-habitable-20190911143452.html
+# es necesario que la masa de un planeta habitable sea como minimo el 2,7% de la
+# masa de la tierra
+# 
+# Con los datos obtenidos desde https://solarsystem.nasa.gov/planets/earth/by-the-numbers/
+# tenemos en kg :
+
+masa_jupiter <- 1898130000000000000000000000
+masa_tierra <- 5972190000000000000000000
+
+# Por lo que ahora solo debemos armar bien nuestra base
+
+masas <- exo_planetas |> 
+  rename(nombre = Name, masacrJ= `Mass (M Jup)`) |> 
+  mutate(masa = masacrJ*masa_jupiter) |> 
+  select(nombre,masa) |> 
+  na.omit()
+
+View(masas) 
+
+masa_minima <- masa_tierra*(2.7/100)
+
+grafico5 <- masas |> 
+  arrange(masa) |> 
+  filter(masa >= 0.5*masa_tierra & masa <= 2*masa_tierra) |>  
+  ggplot(aes(nombre, masa, color= nombre))+
+  geom_point(size = 4)+
+  scale_color_manual(values = rainbow(35))+
+  labs(x = "Exoplanetas",
+       y = "Masas",
+       title = "Exoplanetas con Masa mayor a la masa mínima para ser habitable",
+       subtitle = "Se considera masa mínima todo valor superior al 2,7% de la masa terrestre,
+       además consideraremos a aquellos planetas de tipo Terrestres (0.5 - 2 masas terrestres)",
+       caption = "Datos extraídos de http://exoplanet.eu",
+       color = "Exoplanetas")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  theme_light()
+
+grafico5
+
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
+       height = 7, width = 9)
