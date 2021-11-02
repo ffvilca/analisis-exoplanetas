@@ -33,22 +33,22 @@ periodo <- exo_planetas |>
 
 View(periodo)
 
-periodo |> 
+grafico1 <- periodo |> 
   arrange(periodo_dias) |> 
   filter(periodo_dias >= 360 & periodo_dias <= 400) |>  
-  ggplot(aes(nombre, temperaturaC, color=nombre))+
+  ggplot(aes(nombre, periodo_dias, color=nombre))+
   geom_point(size = 5)+
-  scale_color_manual(values = rainbow(21))+
+  scale_color_manual(values = rainbow(24))+
   labs(x = "Exoplanetas",
-       y = "Temperatura (ºC)",
-       title = "Exoplanetas con Temperatura similar a la Tierra",
-       subtitle = "Se considera una temperatura de entre los -5ºC a los 42ºC",
+       y = "Periodo Órbital (días)",
+       title = "Exoplanetas con Periodo Órbital similar a la Tierra",
+       subtitle = "Se considera una Periodo Órbital de entre los 360 y 400 días",
        caption = "Datos extraídos de http://exoplanet.eu",
        color = "Exoplanetas")+
   scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
   theme_light()
 
-grafico2
+grafico1
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
        height = 7, width = 9)
