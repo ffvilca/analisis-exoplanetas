@@ -1,0 +1,61 @@
+---
+title: "Paletas accesibles y etiquetado de gráficos de líneas"
+author: "Francisca-Vilca"
+date: "04-11-2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+require(ggplot2)
+require(ggthemes)
+require(here)
+require(ggrepel)
+require(dplyr)
+```
+
+
+## Vamos a importar nuestros datos desde otro script
+
+Podemos ejecutar dentro de Rmarkdown un script completo
+
+```{r cache=TRUE}
+# con cache = TRUE hace que se ejecute solo 1 vez, y si se vuelve a tejer se salta el bloque de codigo
+
+source(here("codigo/renombrar_variables_valores.R"), local = knitr::knit_global())
+
+# es bueno hacer esto cuando estoy en el preprocesamiento de los datos
+```
+
+```{r}
+head(desarrollo)
+```
+
+Si quisiera a mi informe una imagen que creé y esta en la carpeta figuras
+
+```{r out.width="80%", fig.align="center"}
+knitr::include_graphics(here("figuras/dispersion_pib-expvida_gapminder.png"))
+```
+
+Si quisiera crear la figura directo en R Markdown
+
+```{r}
+cuatro_paises <- filter(desarrollo,pais %in% c("Chile", "Argentina", "Uruguay","Brasil"))
+
+ggplot(cuatro_paises,aes(anio,pib_per_capita, color=pais))+
+  geom_line(size = 2)+
+  theme_minimal()+
+  labs(tittle = "Evolución del PIB en Chile, Argentina, Uruguay y Brasil",
+       x = NULL,
+       y = "PIB per capita en dólares")+
+  scale_y_continuous(labels = scales::dollar)+
+  scale_x_continuous(limits = c(1958, 2020))+
+  scale_color_colorblind()+
+  geom_text_repel(data = filter(cuatro_paises, anio==max(anio)),
+                  aes(label = pais),
+                  nudge_x = 2)+
+  theme(legend.position = "none")
+```
+
+
