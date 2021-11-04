@@ -50,7 +50,7 @@ grafico1 <- periodo |>
 
 grafico1
 
-ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-periodo-orbital.png",
        height = 7, width = 9)
 
 
