@@ -8,12 +8,15 @@
 # PAQUETES REQUERIDOS ----
 
 require(ggplot2)
-require(plotly)
+require(ggrepel)
 require(dplyr)
 require(gghighlight)
 require(ggtext)
+require(tidyverse)
 
 # Primero recordemos como son nuestros datos
+
+exo_planetas <- readxl::read_excel(here("datos/catalogo-exoplanetas.xlsx")) |> as.data.frame()
 
 View(exo_planetas)
 names(exo_planetas)
@@ -46,7 +49,9 @@ grafico1 <- periodo |>
        caption = "Datos extraídos de http://exoplanet.eu",
        color = "Exoplanetas")+
   scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
-  theme_light()
+  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
+  theme_light()+
+  theme(legend.position = "none")
 
 grafico1
 
@@ -84,31 +89,67 @@ grafico2 <- temperatura |>
        caption = "Datos extraídos de http://exoplanet.eu",
        color = "Exoplanetas")+
   scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
-  theme_light()
+  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
+  theme_light()+
+  theme(legend.position = "none")
 
 grafico2
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
        height = 7, width = 9)
 
-ggplotly(grafico1)
-
 
 ## RADIO ------------------------------------------------------------------
 
+# Debido a que las orbitas de los planetas son de grandes tamaños a pesar de 
+# ser elipses, se tratan de como si fueran circunferencias
+
+radio_jupiter <- 142984/2
+radio_tierra <- 12756/2
+
+radio_t_j <- radio_jupiter/radio_tierra
+
 radios <- exo_planetas |> 
-  rename(nombre = Name, radio = `Radius (R Jup / R Earth)`) |> 
-  select(nombre,radio) |> 
+  rename(nombre = Name, radio = `Radius (R Jup / R Earth)`)|> 
+  mutate(radio_con_respecto_la_tierra = round(radio*radio_t_j,digits = 3)) |> 
+  select(nombre,radio_con_respecto_la_tierra) |> 
   na.omit()
+
+grafico3 <- radios |> 
+  filter(radio_con_respecto_la_tierra > 0.5) |> 
+  filter(radio_con_respecto_la_tierra < 2) |> 
+  ggplot(aes(nombre, radio_con_respecto_la_tierra))+
+  geom_point(size = 5,alpha = 0.4,col='darkblue')+
+  labs(x = "Exoplanetas",
+       y = "Radio con respeccto a la Tierra",
+       title = "Exoplanetas con radio similar a la Tierra",
+       subtitle = "Se considera a los planetas de tipo terrestre, de entre 0.5 a 2 radios Terrestres",
+       caption = "Datos extraídos de http://exoplanet.eu")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  ylim(c(0.25,2.25))+
+  theme_light()
+
+grafico3
+
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-radios.png",
+       height = 7, width = 9)
 
 
 ## MOLECULAS ---------------------------------------------------------------
+
+# este dato es mejor solo trabajarlo y no gráficarlo quizás añadirlo en una tabla
 
 moleculas_para_la_vida <- exo_planetas |> 
   rename(nombre = Name, moleculas = `Molecules`) |> 
   select(nombre,moleculas) |> 
   na.omit()
 
+#prueba <- moleculas_para_la_vida |> 
+#  separate(moleculas,sep = ",", into = as.character(c(1:19)))
+#  filter(str_detect(moleculas, "H2O")) |> 
+#  select(nombre) 
+
+#View(prueba)
 ## MASA --------------------------------------------------------------------
 
 # Una forma de obtener la masa del planeta es comparandolo directamente con la 
@@ -145,15 +186,17 @@ grafico5 <- masas |>
   scale_color_manual(values = rainbow(35))+
   labs(x = "Exoplanetas",
        y = "Masas",
-       title = "Exoplanetas con Masa mayor a la masa mínima para ser habitable",
-       subtitle = "Se considera masa mínima todo valor superior al 2,7% de la masa terrestre,
-       además consideraremos a aquellos planetas de tipo Terrestres (0.5 - 2 masas terrestres)",
+       title = "Exoplanetas con la masa necesaria para ser habitable",
+       subtitle = "Se considera a aquellos planetas de tipo Terrestres (0.5 - 2 masas terrestres)",
        caption = "Datos extraídos de http://exoplanet.eu",
        color = "Exoplanetas")+
   scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
-  theme_light()
+  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
+  theme_light()+
+  theme(legend.position = "none")
+
 
 grafico5
 
-ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
+ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-masas.png",
        height = 7, width = 9)
