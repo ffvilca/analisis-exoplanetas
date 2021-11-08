@@ -36,7 +36,7 @@ periodo <- exo_planetas |>
 
 View(periodo)
 
-grafico1 <- periodo |> 
+grafico_periodo <- periodo |> 
   arrange(periodo_dias) |> 
   filter(periodo_dias >= 360 & periodo_dias <= 400) |>  
   ggplot(aes(nombre, periodo_dias, color=nombre))+
@@ -53,7 +53,7 @@ grafico1 <- periodo |>
   theme_light()+
   theme(legend.position = "none")
 
-grafico1
+grafico_periodo
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-periodo-orbital.png",
        height = 7, width = 9)
@@ -76,7 +76,7 @@ View(temperatura)
 # de entre los 15º-39ºC, por lo que buscamos exoplanetas dentro de ese rango, de
 # aquellos planetas que tenemos información están:
 
-grafico2 <- temperatura |> 
+grafico_temperatura <- temperatura |> 
   arrange(temperaturaC) |> 
   filter(temperaturaC >= -5 & temperaturaC <= 42) |>  
   ggplot(aes(nombre, temperaturaC, color=nombre))+
@@ -93,7 +93,7 @@ grafico2 <- temperatura |>
   theme_light()+
   theme(legend.position = "none")
 
-grafico2
+grafico_temperatura
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-temperatura.png",
        height = 7, width = 9)
@@ -115,9 +115,8 @@ radios <- exo_planetas |>
   select(nombre,radio_con_respecto_la_tierra) |> 
   na.omit()
 
-grafico3 <- radios |> 
-  filter(radio_con_respecto_la_tierra > 0.5) |> 
-  filter(radio_con_respecto_la_tierra < 2) |> 
+grafico_radios <- radios |> 
+  filter(radio_con_respecto_la_tierra > 0.5 | radio_con_respecto_la_tierra < 2) |> 
   ggplot(aes(nombre, radio_con_respecto_la_tierra))+
   geom_point(size = 5,alpha = 0.4,col='darkblue')+
   labs(x = "Exoplanetas",
@@ -129,7 +128,8 @@ grafico3 <- radios |>
   ylim(c(0.25,2.25))+
   theme_light()
 
-grafico3
+
+grafico_radios
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-radios.png",
        height = 7, width = 9)
@@ -178,7 +178,7 @@ View(masas)
 
 masa_minima <- masa_tierra*(2.7/100)
 
-grafico5 <- masas |> 
+grafico_masas <- masas |> 
   arrange(masa) |> 
   filter(masa >= 0.5*masa_tierra & masa <= 2*masa_tierra) |>  
   ggplot(aes(nombre, masa, color= nombre))+
@@ -196,7 +196,7 @@ grafico5 <- masas |>
   theme(legend.position = "none")
 
 
-grafico5
+grafico_masas
 
 ggsave("/Users/home/Documents/LET/analisis-exoplanetas/figuras/exoplanetas-masas.png",
        height = 7, width = 9)
