@@ -11,3 +11,11 @@ En este enlace se encuentra el archivo HTML con las preguntas iniciales con las 
 #### [Introducción](https://ffvilca.github.io/analisis-exoplanetas/productos/01.primera-version-introduccion/introduccion.html) 📃:
 
 En este enlace se encuentra la primera versión de la introducción que se utilizará en este informe.
+
+#### [Paletas y Etiquetas](https://ffvilca.github.io/analisis-exoplanetas/productos/02.paletas-etiquetas/ejemplo-paletas-etiquetas.html) 🎨:
+
+En este enlace esta la informaciñon para mejorar la paleta de colores y las etiquetas de nuestros datos.
+
+#### [Gráficos en Contexto](https://ffvilca.github.io/analisis-exoplanetas/productos/03.presentacion-graficos/graficos-en-contexto.html) 📊 :
+
+En este enlace se encuentran algunos gráficos con su respectivo contexto 
