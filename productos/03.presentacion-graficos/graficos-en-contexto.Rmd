@@ -26,7 +26,7 @@ require(tidyverse)
 require(here)
 ```
 
-```{r include=FALSE}
+```{r cache=TRUE, include=FALSE}
 source(here("codigo/actividad-10_grafico-inicial.R"), local = knitr::knit_global())
 ```
 
