@@ -1,0 +1,82 @@
+---
+title: "<center>Gráficos en contexto</center>"
+subtitle: "<center>Francisca Vilca Sánchez</center>"
+date: "<center>`r format(Sys.Date(), '%d/%m/%Y')`</center>"
+output: 
+    html_document:
+        toc: false
+        theme:
+            bg: 'darkblue'      # Color de fondo
+            fg: 'ghostwhite'      # Color fuente y lineas.
+            primary: "gold" # Resaltado
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+require(ggplot2)
+require(ggrepel)
+require(dplyr)
+require(ggtext)
+require(tidyverse)
+require(here)
+```
+
+```{r include=FALSE}
+source(here("codigo/actividad-10_grafico-inicial.R"), local = knitr::knit_global())
+```
+
+
+Tal como se ha explicado a lo largo de la creación de este trabajo, el objetivo principal, es lograr identificar aquellos exoplanetas que son bastante similares a la Tierra en ciertas caracteristicas que se han decidido relevantes, para poder vivir en este nuevo planeta, dada las limitaciones de los seres humanos.
+
+Antes de comenzar todo el analisis de los `r dim(exo_planetas)[1]` exoplanetas primero es necesario tener presente que dada la temática de este trabajo existen varios datos, que no lograron ser recolectados en este base, por lo que este no sea un analisis de los más completo posible, sin embargo, se intentá descubrir el próximo planeta en el que se pueda vivir como humanidad.
+
+### Radio de un planeta habitable
+
+Como todo ser humano, alguna vez te haz preguntado que se sentiría recorrer el mundo y dada las posibilidades de cada uno quizás haz logrado recorrer alguno que otro lugar, por ejemplo, para llegar a París, Francia  desde Santiago de Chile un vuelo directo demora más de 26 horas (aprox. 11673 km.), dado el radio del planeta Tierra unos `r radio_tierra` km es "sencillo", moverse a través de él, pero si se llegase a aumentar 10 veces el radio de esta, tanto las distancias como el tiempo para movernos aumentaría drasticamente.
+
+Por lo anterior, se considera que el radio de un exoplaneta habitable va desde los $0.5$ a $2$ radios terrestres, ya que, nos da una brecha lo suficientemente amplia para considerarlo habitable, en el siguiente gráfico se puede ver a aquellos exoplanetas que entran en esa categoría:  
+
+```{r out.width="70%",fig.align="center", echo= FALSE}
+
+plotly::ggplotly(grafico_radios)
+
+```
+
+Como se observa en el gráfico anterior muchos exoplanetas entran en esta categoría lo que hace complicada la situación de elegir a aquellos que se consideran habitables, por lo mismo además de ver la caracteristica del radio, tambien es necesaria conocer la masa del mismo.
+
+
+### ¿Qué tan pesado debería ser un exoplaneta habitable?
+
+Comentario proximamente...
+
+```{r out.width="70%", fig.align="center", echo= FALSE}
+
+grafico_masas
+
+```
+
+### Temperatura de un planeta habitable
+
+Comentario proximamente...
+
+```{r out.width="70%", fig.align="center", echo= FALSE}
+grafico_temperatura
+```
+
+### ¿ Cúanto debería durar un día en un planeta habitable?
+
+Comentario proximamente...
+
+```{r out.width="70%", fig.align="center", echo= FALSE}
+grafico_periodo
+```
+
+### Moléculas esenciales para la vida
+
+Comentario proximamente...
+
