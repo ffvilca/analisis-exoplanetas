@@ -144,12 +144,12 @@ moleculas_para_la_vida <- exo_planetas |>
   select(nombre,moleculas) |> 
   na.omit()
 
-#prueba <- moleculas_para_la_vida |> 
-#  separate(moleculas,sep = ",", into = as.character(c(1:19)))
-#  filter(str_detect(moleculas, "H2O")) |> 
-#  select(nombre) 
+prueba <- moleculas_para_la_vida |> 
+  separate(moleculas,sep = ",", into = as.character(c(1:19)))
+  filter(str_detect(moleculas, "H2O")) |> 
+  select(nombre) 
 
-#View(prueba)
+View(prueba)
 ## MASA --------------------------------------------------------------------
 
 # Una forma de obtener la masa del planeta es comparandolo directamente con la 
