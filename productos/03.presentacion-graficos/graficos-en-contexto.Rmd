@@ -43,7 +43,7 @@ Por lo anterior, se considera que el radio de un exoplaneta habitable va desde l
 
 ```{r out.width="70%",fig.align="center", echo= FALSE}
 
-plotly::ggplotly(grafico_radios)
+plotly::ggplotly(grafico_radios,tooltip = c(xlim=NULL))
 
 ```
 
