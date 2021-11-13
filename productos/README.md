@@ -19,3 +19,7 @@ En este enlace esta la informaciñon para mejorar la paleta de colores y las eti
 #### [Gráficos en Contexto](https://ffvilca.github.io/analisis-exoplanetas/productos/03.presentacion-graficos/graficos-en-contexto.html) 📊 :
 
 En este enlace se encuentran algunos gráficos con su respectivo contexto 
+
+#### [Primera versión del Informe](https://ffvilca.github.io/analisis-exoplanetas/productos/04.primera-versi%C3%B3n-informe/informe.html) 📃:
+
+En este enlace se encuentra el html de la primera versión del informe que se usará para la actividad 11.
