@@ -1,0 +1,93 @@
+---
+title: "<center> Aprendiendo a usar tablas </center>"
+output: 
+    html_document:
+        toc: false
+        theme:
+            bg: 'darkblue'      # Color de fondo
+            fg: 'ghostwhite'      # Color fuente y lineas.
+            primary: "gold" # Resaltado
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# paquetes
+require(gapminder)
+require(gt)
+require(gtsummary)
+require(gtExtras)
+require(broom)
+require(palmerpenguins)
+require(dplyr)
+
+```
+
+# Cómo crear una tabla con el paquete {gt}
+
+```{r}
+filter(gapminder,year == 2007) |> 
+  group_by(continent) |> 
+  slice_max(pop,n = 3) |> 
+  gt() |> 
+  tab_header(title = "Países con mayor población en el año 2007",
+             subtitle = "según continente") |> 
+  tab_footnote(footnote = "Estos son los dos únicos países de Oceanía incluidos en la base de datos utilizada.",
+               locations = cells_body(columns = country, rows = 13:14)) |> 
+  tab_source_note(source_note = "Fuente: gapminder.org a través del paquete de R {gapminder}") |> 
+  summary_rows(columns = lifeExp:gdpPercap,
+               groups = TRUE,
+               fns = list(
+                 media = ~mean(.),
+                 DE = ~sd(.)
+               )) |> 
+  tab_spanner(label = "variables de desarrollo",
+              columns = 4:6)
+```
+
+# Crear una tabla para las variables
+
+```{r}
+
+data.frame(variable = names(gapminder),
+           descripcion = c(
+             "País (factor con 142 niveles)",
+             "Continente (factor con 5 niveles: Africa,América, etc.",
+             "kdjlasd",
+             "jsajdk",
+             "dsaljd",
+             "sajdlk"
+           )) |> 
+  gt()
+
+```
+
+# Crear un dataframe a partir de los resultados de un modelo
+
+```{r}
+modelo <- lm(body_mass_g ~flipper_length_mm + bill_length_mm + bill_depth_mm,data = penguins)
+```
+
+```{r}
+summary(modelo)$r.squared
+```
+
+```{r}
+tidy(modelo) |> 
+  gt()
+
+```
+
+```{r}
+glance(modelo)
+```
+
+```{r}
+augment(modelo)
+```
+
+
