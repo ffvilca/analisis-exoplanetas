@@ -18,7 +18,6 @@ require(tidyverse)
 
 exo_planetas <- readxl::read_excel(here("datos/catalogo-exoplanetas.xlsx")) |> as.data.frame()
 
-View(exo_planetas)
 names(exo_planetas)
 str(exo_planetas)
 
@@ -33,8 +32,6 @@ periodo <- exo_planetas |>
   rename(nombre = Name, periodo_dias = `Period (day)`) |> 
   select(nombre,periodo_dias) |> 
   na.omit()
-
-View(periodo)
 
 grafico_periodo <- periodo |> 
   arrange(periodo_dias) |> 
@@ -69,8 +66,6 @@ temperatura <- exo_planetas |>
   mutate(temperaturaC = (temperatura-273)) |> 
   select(nombre,temperaturaC) |> 
   na.omit()
-
-View(temperatura)  
 
 # Sabemos que la vida en la Tierra para ser posible debe tener una Temperatura 
 # de entre los 15º-39ºC, por lo que buscamos exoplanetas dentro de ese rango, de
@@ -144,12 +139,11 @@ moleculas_para_la_vida <- exo_planetas |>
   select(nombre,moleculas) |> 
   na.omit()
 
-prueba <- moleculas_para_la_vida |> 
-  separate(moleculas,sep = ",", into = as.character(c(1:19)))
+exoplanetas_con_agua <- moleculas_para_la_vida |> 
+  arrange(nombre) |> 
   filter(str_detect(moleculas, "H2O")) |> 
-  select(nombre) 
+  select(nombre, moleculas) 
 
-View(prueba)
 ## MASA --------------------------------------------------------------------
 
 # Una forma de obtener la masa del planeta es comparandolo directamente con la 
