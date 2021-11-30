@@ -78,7 +78,7 @@ source(here("codigo/actividad-10_grafico-inicial.R"), local = knitr::knit_global
 
   <p align="justify"> El primero de ello es el *radio*, cuando lo queremos analizar, nos vamos a enfocar en aquellos que se consideran planetas terrestres. Esta es una clasificación entregada por la comunidad científica para aquellos planetas que están compuestos de rocas y cuyo tamaño es de dos veces mayor a la Tierra o la mitad de él. Esta regla, puede incluso abarcar a algunos más pequeños, no obstante cuando el planeta es más grande y rocoso pasa a ser de tipo súper-Tierra</p>
 
-  <p align="justify"> En la base de datos que estamos trabajando, el dato que se nos entrega aquí es una proporción del radio de Júpiter con respecto al de la Tierra y luego de un procesamiento de los datos, que se puede visulizar en el [código anexado](), se logro armar un gráfico que nos muestra los tipos de planetas según el tipo de que es, en color azul los planetas de tipo terrestre y en color gris de tipo súper-Tierra. </p>
+  <p align="justify"> En la base de datos que estamos trabajando, el dato que se nos entrega aquí es una proporción del radio de Júpiter con respecto al de la Tierra y luego de un procesamiento de los datos, que se puede visulizar en el [código anexado](https://github.com/ffvilca/analisis-exoplanetas/blob/main/codigo/anexo.R), se logro armar un gráfico que nos muestra los tipos de planetas según el tipo de que es, en color azul los planetas de tipo terrestre y en color gris de tipo súper-Tierra. </p>
   
 ```{r fig.align='center', include=FALSE, warning=FALSE}
 radio_jupiter <- 142984/2
