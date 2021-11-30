@@ -23,3 +23,11 @@ En este enlace se encuentran algunos gráficos con su respectivo contexto
 #### [Primera versión del Informe](https://ffvilca.github.io/analisis-exoplanetas/productos/04.primera-versi%C3%B3n-informe/informe.html) 📃:
 
 En este enlace se encuentra el html de la primera versión del informe que se usará para la actividad 11.
+
+#### [Tablas](https://ffvilca.github.io/analisis-exoplanetas/productos/05.aprendiendo-a-usar-tablas/tablas.html)
+
+En este enlace esta la información para la creación de tablas usando el paquete {broom} y {gt}
+
+#### [Informe final](https://ffvilca.github.io/analisis-exoplanetas/productos/06.informe-final/informe.html)
+
+En este enlace esta la versión final del informe de este trabajo

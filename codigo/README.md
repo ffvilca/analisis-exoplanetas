@@ -13,3 +13,7 @@ Aquí se encuentra el código para crear una base de datos con las variables en 
 ### [Actividad 10](https://github.com/ffvilca/analisis-exoplanetas/blob/main/codigo/actividad-10_grafico-inicial.R)
 
 Aquí se encuentra el código para la actividad 10 que consiste en crear gráficos que posteriormente será utilizados en el informe.
+
+### [Anexo](https://github.com/ffvilca/analisis-exoplanetas/blob/main/codigo/anexo.R)
+
+Aquí se encunetra el código de los gráficos finales, utilizados en el informe final.
