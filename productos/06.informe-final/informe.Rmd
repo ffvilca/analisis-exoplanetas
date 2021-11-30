@@ -1,0 +1,212 @@
+---
+title: "<center>🪐 ¿Cuál será nuestro próximo destino? 🪐 \nExoplanetas la salvación de la humanidad </center>"
+subtitle: "<center>Por: Francisca Vilca Sánchez</center>"
+date: "<center>`r format(Sys.Date(), '%d/%m/%Y')`</center>"
+output: 
+    html_document:
+        toc: false
+        theme:
+            bg: 'darkblue'      # Color de fondo
+            fg: 'ghostwhite'      # Color fuente y lineas.
+            primary: "gold" # Resaltado
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+require(here)
+require(dplyr)
+require(ggplot2)
+require(ggrepel)
+require(gghighlight)
+require(kableExtra)
+require(stringr)
+```
+
+```{r cache=TRUE, include=FALSE}
+source(here("codigo/actividad-10_grafico-inicial.R"), local = knitr::knit_global())
+```
+
+# *Introducción*
+
+  <p align="justify"> El Universo en el que vivimos es inmensamente grande y la comprensión que tenemos de este es practicamente nula. Sin embargo, gracias al conocimiento científico hemos sido capaces de cada día ir avanzando un poco más en entender cómo funciona este. Una de las ramas que se está estudiando es el descubrimiento de exoplanetas, que son aquellos planetas que giran alrededor de otra estrella que no es el Sol de nuestro Sistema Solar, es decir, prácticamente la búsqueda de nuevos mundos a través del Universo.</p>
+  
+  <p align="justify"> Se deben estar preguntando por qué nos interesaría hablar sobre otros mundos que están a miles de millones de kilometros de nosotros, y la respuesta es bastante simple.A pesar de la distancia que nos separa de ellos, conocer otros exoplanetas nos será de gran ayuda para tener una mejor comprensión de nuestro propio Sistema Solar, y por consiguiente, de La Tierra. Además, a lo largo del último tiempo, el cambio climático y el calentamiento global han ido en aumento, haciendo de nuestro hogar cada día que pasa un lugar menos habitable para los seres vivos. Por ello, las grandes potencias mundiales están comenzando a buscar otras opciones para vivir, por lo que aquí la investigación y búsqueda de los exoplanetas se ha vuelto tan importante.</p>
+
+  <p align="justify"> Debido a lo anterior, el objetivo de este informe será intentar encontrar aquellos planetas extrasolares con las características más similares a las de nuestro planeta. Utilizando una base de datos que contiene a los últimos exoplanetas descubiertos por la humanidad, es decir, entre 1988 y la actualidad.</p>
+  
+  <p align="justify"> Este informe se organizará en cuatro secciones. La **primera** será la que nos dé un contexto sobre qué son los exoplanetas, se explicará desde cuándo se buscan y la importancia que tienen. En la **segunda sección** será la que explique la metodología que se usará para hacer el análisis del dataset, para poder extraer la mayor información posible. A continuación, en la **tercera sección** presentarán los resultados mediante gráficos que resuman la información. Finalmente, en la **cuarta** y última sección, se entregan las conclusiones sobre por qué es bueno seguir buscando exoplanetas y por qué sería bueno poder llegar a ellos.</p>
+  
+# *Exoplaneta: ¿qué es eso?*
+
+  <p align="justify"> Probablemente como la mayoría de los habitantes de la Tierra, has escuchado hablar de los planetas de nuestro Sistema Solar y que, dada sus caracaterísticas es poco probable que podamos habitar en ellos. Por lo anterior, es que diferentes instituciones se han dedicado a investigar otras opciones, por lo que ahí es donde comienza a parecer el concepto de **exoplaneta** que, según la página de la [NASA](https://exoplanets.nasa.gov/what-is-an-exoplanet/overview/), se define como "cualquier planeta más allá de nuestro Sistema Solar". Con ello en mente, es claro que no es una misión sencilla, ya que implica buscar algo que aún no sabemos que existe. Desde la década de los noventa la búsqueda de exoplanetas ha estado presente y gracias al avance de la tecnología junto con los nuevos mecanismos para encontrarlos, es posible decir que al día de hoy ya conocemos más de `r length(unique(exo_planetas$Name))` planetas extrasolares. Si bien aún no somos capaces de encontrar uno que sea habitable por los seres humanos, sí se han encontrado muy buenos candidatos.</p>
+  <p align="justify"> El descubrimiento de exoplanetas es una rama de la astronomía de gran importancia, puesto que con ella vamos a ser capaces de determinar a aquellos candidatos para ser el próximo destino de la humanidad. En este informe, trataremos de identificar cuales cumples con las caracteristicas que se consideran importantes para que exista la vida humana.</p>
+
+# *¿De dónde son nuestros datos?*
+
+  <p align="justify"> Como hemos mencionado anteriormente, la cantidad de exoplanetas descubiertos al día de hoy supera a los 4000 y cada día que pasa aumenta este número. Por esta razón, trabajar con una base de datos lo más actualizada posible es una tarea compleja. Luego de una intensa búsqueda por la web se ha logrado encontrar una que contiene la información suficiente para llevar a cabo un análisis exhaustivo con variables que sean interesantes y útiles. La base elegida nos muestra un [Catálogo de Exoplanetas](https://www.datastro.eu/explore/dataset/exoplaneteu_catalog-1/information/?sort=mass&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJwaWUiLCJmdW5jIjoiQ09VTlQiLCJ5QXhpcyI6Im1hc3MiLCJzY2llbnRpZmljRGlzcGxheSI6dHJ1ZSwiY29sb3IiOiJyYW5nZS1SZFlsR24iLCJwb3NpdGlvbiI6ImNlbnRlciJ9XSwieEF4aXMiOiJkZXRlY3Rpb25fdHlwZSIsIm1heHBvaW50cyI6IiIsInRpbWVzY2FsZSI6IiIsInNvcnQiOiJzZXJpZTEtMSIsInNlcmllc0JyZWFrZG93biI6IiIsInNlcmllc0JyZWFrZG93blRpbWVzY2FsZSI6IiIsImNvbmZpZyI6eyJkYXRhc2V0IjoiZXhvcGxhbmV0ZXVfY2F0YWxvZy0xIiwib3B0aW9ucyI6eyJzb3J0IjoidXBkYXRlZCJ9fX1dLCJ0aW1lc2NhbGUiOiIiLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D) publicado por *Exoplaneta.eu*, que incluye un total de `r length(names(exo_planetas))` variables para `r length(unique(exo_planetas$Name))` exoplanetas, es decir, mucha información. Por lo anterior, en esta base hay muchos ángulos desde donde seleccionar los exoplanetas que serían buenos candidatos para un futuro hogar para la humanidad. Por ello, se ha decidido seleccionar solo algunas variables con las que se puede comenzar ha hacer un pequeño ánalisis, las cuales presentamos a continuación:</p>
+
+### 1. Radio de un planeta habitable
+
+<p align="justify"> Como todo ser humano, seguramente te has preguntado qué se sentiría recorrer el mundo y dependiendo de tus posibilidades de quizás has logrado recorrer alguno que otro lugar. Por ejemplo, para llegar a París, Francia  desde Santiago de Chile un vuelo directo demora más de 26 horas (aprox. 11673 km.), dado que el radio del planeta Tierra es de unos `r radio_tierra` km resulta "sencillo" moverse a través de él. Sin embargo, si su radio llegase a aumentar 10 veces, tanto las distancias como el tiempo para movernos aumentaría drásticamente.</p>
+
+<p align="justify"> Por lo anterior, se considera que el radio de un exoplaneta habitable va desde los $0.5$ a $2$ radios terrestre lo que nos daría una brecha lo suficientemente amplia para considerarlo habitable. En otras palabras, el próximo hogar de la humanidad debería tener un radio 2 veces más grande que el de la Tierra o la mitad de la misma.</p>
+  
+### 2. ¿Cuál debería ser la masa un exoplaneta habitable?
+
+<p align="justify"> Una vez que ya decidimos el radio que debería tener nuestro próximo hogar como humanidad, es necesario cuestionarnos sobre la masa que tendrá este. Imaginemos vivir en un planeta que es extremadamente liviano, no tendríamos donde apoyar nuestros pies, pues sería como estar en una nube, por otro lado, vivir en un planeta extremadamente pesado no mejora la situación. Por lo anterior, se ha decidido que para que su masa debe estar entre 0.5 a 2 masas terrestres.</p>
+
+### 3. Temperatura de un exoplaneta habitable
+
+<p align="justify"> En astronomía, se utiliza mucho el concepto de *zona de habitabilidad*, la que hace referencia al lugar donde es posible ubicar un planeta dada ciertas condiciones. Para el caso de la Temperatura, esta se encuentra estrictamente relacionada con la distancia a la que se encuentra de la estrella a la que este exoplaneta esta orbitando. Sin embargo, al ser este un dato complicado de obtener, solo usaremos la temperatura para dar respuesta a si se encuentra en la zona de habitabilidad. La Temperatura es una característica clave al momento de elegir nuestro próximo hogar, ya que como seres humanos necesitamos tener cierta temperatura corporal para el funcionamiento interno de nuestro propio organismo. Con ello en mente, el rango de la temperatura estará entre los -5º C y los 42ºC que es un rango que como humanidad somos capaces de soportar.</p>
+
+### 4. Moléculas esenciales para la vida en un exoplaneta habitable
+
+<p align="justify"> Claramente para los seres vivos existe una molécula esencial para la vida, el($H_20$) o más conocida por la humanidad como **agua**. Sin esta molécula en estado líquido nos sería imposible vivir. Es necesario mencionar, que esta es una de las principales razones por las que el planeta Marte no es nuestro destino final, por ahora, ya que por el momento no es posible encontrar agua en estado líquido en este planeta. </p>
+
+<p align="justify"> En la base de datos otorgadas por *Exoplaneta.eu* existe una categoría que nos muestra las moléculas identificadas. En algunos exoplanetas se han logrado captar más de 15. Sin embargo para hacer más cercano este trabajo para todas las personas, en este caso solo nos enfocaremos en los planetas que posean agua, en cualquiera de sus diferentes estados. </p>
+  
+# *¿Qué nos dicen los datos?*
+
+  <p align="justify"> Ahora que logramos entender, cúales son aquellas variables que vamos a utilizar para hacer el análisis sobre los futuros candidatos a hogar para la humanidad. Es necesario dejar en claro, que para el análisis de algunas características nos basamos en antecedentes científicos. Sin embargo, otros solo apelan al criterio de la autora. Con ello, podemos comenzar a dar una visualización de los resultados:</p>
+  
+### 1. Radio de un exoplaneta habitable
+
+  <p align="justify"> El primero de ello es el *radio*, cuando lo queremos analizar, nos vamos a enfocar en aquellos que se consideran planetas terrestres. Esta es una clasificación entregada por la comunidad científica para aquellos planetas que están compuestos de rocas y cuyo tamaño es de dos veces mayor a la Tierra o la mitad de él. Esta regla, puede incluso abarcar a algunos más pequeños, no obstante cuando el planeta es más grande y rocoso pasa a ser de tipo súper-Tierra</p>
+
+  <p align="justify"> En la base de datos que estamos trabajando, el dato que se nos entrega aquí es una proporción del radio de Júpiter con respecto al de la Tierra y luego de un procesamiento de los datos, que se puede visulizar en el [código anexado](), se logro armar un gráfico que nos muestra los tipos de planetas según el tipo de que es, en color azul los planetas de tipo terrestre y en color gris de tipo súper-Tierra. </p>
+  
+```{r fig.align='center', include=FALSE, warning=FALSE}
+radio_jupiter <- 142984/2
+radio_tierra <- 12756/2
+
+radio_t_j <- radio_jupiter/radio_tierra
+
+radios <- exo_planetas |> 
+  rename(nombre = Name, radio = `Radius (R Jup / R Earth)`)|> 
+  mutate(radio_con_respecto_la_tierra = round(radio*radio_t_j,digits = 3)) |> 
+  select(nombre,radio_con_respecto_la_tierra) |> 
+  na.omit()
+
+grafico_radios <- radios |> 
+  ggplot(aes(nombre, radio_con_respecto_la_tierra))+
+  geom_point(size = 5,alpha = 0.4, col = "darkblue")+
+  gghighlight((radio_con_respecto_la_tierra < 2)) +
+  scale_color_manual(values = "darkblue")+
+  labs(x = "Exoplanetas",
+       y = "Radio con respeccto a la Tierra",
+       title = "Exoplanetas con radio similar a la Tierra",
+       subtitle = "Se considera a los exoplanetas de tipo terrestre, de entre 0.5 a 2 radios Terrestres",
+       caption = "Datos extraídos de http://exoplanet.eu")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  ylim(0,20)+
+  theme_light()
+```
+
+```{r fig.align='center', echo=FALSE, warning=FALSE}
+grafico_radios
+```
+
+  <p align="justify"> De la imagen anterior, es claro ver que existen muchos planetas extrasolares que entran en la categoría de Terrestre. Especificamente, `r dim(filter(radios,(radio_con_respecto_la_tierra < 2)))[1]`, un número no menor, por lo que al menos bajo este criterio, no podemos señalar algún candidato específico. </p>
+
+  
+### 2. ¿Cuál debería ser la masa un exoplaneta habitable?
+
+  <p align="justify"> Para el caso de la masa, no existe un criterio tan explícito como en el radio, por lo que en este caso, seremos más arbitrarios y con el fin de seguir una sola línea. Selecionaremos aquellos exoplanetas que tengan entre 0.5 a 2 masas terrestres. Además, aquí nuevamente se da la masa con respecto a Júpiter, por lo que haciendo un procesamiento similar que con el radio, es posible plasmar los resultados en el siguiente gráfico:</p>
+
+```{r fig.align='center', echo=FALSE}
+masa_jupiter <- 1898130000000000000000000000
+masa_tierra <- 5972190000000000000000000
+
+masas <- exo_planetas |> 
+  rename(nombre = Name, masacrJ= `Mass (M Jup)`) |> 
+  mutate(masa = masacrJ*masa_jupiter) |> 
+  select(nombre,masa) |> 
+  na.omit()
+
+grafico_masas <- masas |> 
+  arrange(nombre) |> 
+  filter(masa >= 0.5*masa_tierra & masa <= 2*masa_tierra) |>  
+  ggplot(aes(nombre, masa))+
+  geom_point(size = 4, col = "darkblue")+
+  labs(x = "Exoplanetas",
+       y = "Masas",
+       title = "Exoplanetas con la masa necesaria para ser habitable",
+       subtitle = "Se considera a aquellos exoplanetas de tipo Terrestres (0.5 - 2 masas terrestres)",
+       caption = "Datos extraídos de http://exoplanet.eu",
+       color = "Exoplanetas")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
+  theme_light()+
+  theme(legend.position = "none")
+
+
+grafico_masas
+```
+
+  <p align="justify"> De la figura anterior, podemos hacer varias observaciones. Sin embargo, antes de profundizar en ello, es necesario saber que cuando se identifica una estrella que posee un sistema planetario los planetas que lo componen pasan a tener el mismo nombre más una letra (comenzando en la b) que los identifique según su cercanía a dicah estrella. La relevancia de este dato se debe a que podemos comenzar a identificar algunos sistemas, solo al restringir la masa. Aquellos a los que les debemos prestar mayor atención son *K2-239*,*Keppler-11*, *Keppler-128*,*Keppler-138* y *Trappist-1* </p>
+
+### 3. Temperatura de un exoplaneta habitable
+
+  <p align="justify"> Como mencionamos anteriormente el rango que ocuparemos en este caso se encontrará entre los -5º y los 42º Celcius. Hemos seleccionado este rango por la simple razón de que son temperaturas que han sido registradas en la Tierra y que el ser humano a logrado soportar, por lo que se considera un criterio lo bastante razonable. Sin embargo, la base de datos nos entrega este dato en grados Kelvin, por lo que es necesario hacer la transformación a grados Celcius, para tener una mejor comprensión. Luego será posible visualizar los datos en el siguiente gráfico: </p>
+
+```{r fig.align='center', echo=FALSE}
+grafico_temperatura <- temperatura |> 
+  arrange(nombre) |> 
+  filter(temperaturaC >= -5 & temperaturaC <= 42) |>  
+  ggplot(aes(nombre, temperaturaC))+
+  geom_point(size = 5, col = 'darkblue' )+
+  labs(x = "Exoplanetas",
+       y = "Temperatura (ºC)",
+       title = "Exoplanetas con Temperatura similar a la Tierra",
+       subtitle = "Se considera una temperatura de entre los -5ºC a los 42ºC",
+       caption = "Datos extraídos de http://exoplanet.eu")+
+  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
+  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
+  theme_light()+
+  theme(legend.position = "none")
+
+grafico_temperatura
+```
+
+  <p align="justify"> Por lo que es posible observar del gráfico, muchos de los nombres seleccionados anteriormente, no volvieron a aparecer. Lo cual se justifica en base a lo mencionado en un inicio, sobre que existe una gran cantidad de exoplanetas de los cuales no se tiene la suficiente información, lo que no implica que dejan de ser buenos candidatos. Al considerar esta nueva variable podemos ver que el sistema planetario *TOI-700* y *Trappist* comienzan a tomar cierta relevancia ya que su nombre se comienza a repetir en 2 ocasiones. Por otro lado, dejando de lado nuestra misión es claro ver que el satelite Keppler es uno de los que más a detectado planetas extrasolares con buenas características</p>
+
+### 4. Moléculas esenciales para la vida en un exoplaneta habitable
+
+  <p align="justify"> Como se mencionó, aquí nos enfocaremos solo en los planetas extrasolares que tengan agua dentro de su ecosistema, para ello usando diferentes funciones de R, lograremos identificar aquellos que la tengan, los que se pueden ver en la siguiente tabla: </p>
+
+```{r fig.align='center', echo=FALSE, fig.cap= "Tabla 1: Listado de Exoplanetas con presencia de Agua"}
+moleculas_para_la_vida <- exo_planetas |> 
+  rename(nombre = Name, moleculas = `Molecules`) |> 
+  select(nombre,moleculas) |> 
+  na.omit()
+
+exoplanetas_con_agua <- moleculas_para_la_vida |> 
+  arrange(nombre) |> 
+  filter(str_detect(moleculas, "H2O")) |> 
+  select(nombre, moleculas) 
+
+kable(exoplanetas_con_agua,
+      digits =8,
+      row.names = TRUE,
+      booktabs = TRUE, 
+      centering = TRUE,
+      align = "rrrrrrr",
+      options= list(pageLengtj = 11)) |> 
+      scroll_box(width = "85%",height = "500px") |> 
+  kable_minimal()
+```
+
+  <p align="justify"> De la figura anterior, podemos ver que el nombre de los planetas *Trappist* vuelve a salir a la luz, ya que en todos ellos se encuentra presente el agua. Otro nombre interesante es el *Keppler-167*, que ya había sido visto en el gráfico de masas. A parte de estos casos, no se ve algún otro candidato que se repita. </p>
+
+# *¿Ahora qué?*
+
+  <p align="justify"> Conclusiones sobre porque es bueno seguir buscando este exoplanetas y porque sería bueno poder llegar a ellos.</p>
+
+  <p align="justify"> La idea es comparar con losresultados de algunas página oficial como la NASA.</p>
+  
+# *Referencias*
