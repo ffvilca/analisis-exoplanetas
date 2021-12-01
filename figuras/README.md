@@ -20,3 +20,7 @@ Aquí se especificará la fuente que se utilizó en cada uno.
 ### 📍 Temperatura:
 
 [Exoplanetas con Temperatura entre los -5º y los 42ºC](https://raw.githubusercontent.com/ffvilca/analisis-exoplanetas/main/figuras/exoplanetas-temperatura.png)
+
+### 📍 TRAPPIST-1:
+
+[Exoplanetas de TRAPPIST-1](https://raw.githubusercontent.com/ffvilca/analisis-exoplanetas/main/figuras/exoplanetas-trappist1.jpg)
