@@ -72,6 +72,12 @@ grafico_masas
 
 # TEMPERATURA
 
+temperatura <- exo_planetas |> 
+  rename(nombre = Name, temperatura = `Temp calculated (K)`) |> 
+  mutate(temperaturaC = (temperatura-273)) |> 
+  select(nombre,temperaturaC) |> 
+  na.omit()
+
 grafico_temperatura <- temperatura |> 
   arrange(nombre) |> 
   filter(temperaturaC >= -5 & temperaturaC <= 42) |>  
@@ -88,30 +94,6 @@ grafico_temperatura <- temperatura |>
   theme(legend.position = "none")
 
 grafico_temperatura
-
-# PERIODO ÓRBITAL
-
-periodo <- exo_planetas |> 
-  rename(nombre = Name, periodo_dias = `Period (day)`) |> 
-  select(nombre,periodo_dias) |> 
-  na.omit()
-
-grafico_periodo <- periodo |> 
-  arrange(nombre) |> 
-  filter(periodo_dias >= 360 & periodo_dias <= 400) |>  
-  ggplot(aes(nombre, periodo_dias))+
-  geom_point(size = 5, col="darkblue")+
-  labs(x = "Exoplanetas",
-       y = "Periodo Órbital (días)",
-       title = "Exoplanetas con Periodo Órbital similar a la Tierra",
-       subtitle = "Se considera una Periodo Órbital de entre los 360 y 400 días",
-       caption = "Datos extraídos de http://exoplanet.eu")+
-  scale_x_discrete(name="Exoplanetas", breaks= NULL,labels = NULL)+
-  geom_text_repel(aes(label = nombre),nudge_y = 1.5)+
-  theme_light()+
-  theme(legend.position = "none")
-
-grafico_periodo
 
 # MOLECULAS
 
