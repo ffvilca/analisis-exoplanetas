@@ -39,7 +39,7 @@ source(here("codigo/actividad-10_grafico-inicial.R"), local = knitr::knit_global
 
   <p align="justify"> Debido a lo anterior, el objetivo de este informe será intentar encontrar aquellos planetas extrasolares con las características más similares a las de nuestro planeta. Utilizando una base de datos que contiene a los últimos exoplanetas descubiertos por la humanidad, es decir, entre 1988 y la actualidad.</p>
   
-  <p align="justify"> Este informe se organizará en cuatro secciones. La **primera** será la que nos dé un contexto sobre qué son los exoplanetas, se explicará desde cuándo se buscan y la importancia que tienen. En la **segunda sección** será la que explique la metodología que se usará para hacer el análisis del dataset, para poder extraer la mayor información posible. A continuación, en la **tercera sección** presentarán los resultados mediante gráficos que resuman la información. Finalmente, en la **cuarta** y última sección, se entregan las conclusiones sobre por qué es bueno seguir buscando exoplanetas y por qué sería bueno poder llegar a ellos.</p>
+  <p align="justify"> Este informe se organizará en cuatro secciones. La **primera** será la que nos dé un contexto sobre qué son los exoplanetas, se explicará desde cuándo se buscan y la importancia que tienen. En la **segunda sección** será la que explique la metodología que se usará para hacer el análisis del dataset, para poder extraer la mayor información posible. A continuación, en la **tercera sección** presentarán los resultados mediante gráficos que resuman la información. Finalmente, en la **cuarta** y última sección, se entregan las conclusiones sobre por qué es bueno seguir buscando exoplanetas y si logramos identificar algún candidato para ser el próximo hogar de la humanidad.</p>
   
 # *Exoplaneta: ¿qué es eso?*
 
@@ -148,7 +148,7 @@ grafico_masas <- masas |>
 grafico_masas
 ```
 
-  <p align="justify"> De la figura anterior, podemos hacer varias observaciones. Sin embargo, antes de profundizar en ello, es necesario saber que cuando se identifica una estrella que posee un sistema planetario los planetas que lo componen pasan a tener el mismo nombre más una letra (comenzando en la b) que los identifique según su cercanía a dicah estrella. La relevancia de este dato se debe a que podemos comenzar a identificar algunos sistemas, solo al restringir la masa. Aquellos a los que les debemos prestar mayor atención son *K2-239*,*Keppler-11*, *Keppler-128*,*Keppler-138* y *Trappist-1* </p>
+  <p align="justify"> De la figura anterior, podemos hacer varias observaciones. Sin embargo, antes de profundizar en ello, es necesario saber que cuando se identifica una estrella que posee un sistema planetario los planetas que lo componen pasan a tener el mismo nombre más una letra (comenzando en la b) que los identifique según su cercanía a dicah estrella. La relevancia de este dato se debe a que podemos comenzar a identificar algunos sistemas, solo al restringir la masa. Aquellos a los que les debemos prestar mayor atención son *K2-239*,*Keppler-11*, *Keppler-128*,*Keppler-138* y *TRAPPIST-1* </p>
 
 ### 3. Temperatura de un exoplaneta habitable
 
@@ -173,7 +173,7 @@ grafico_temperatura <- temperatura |>
 grafico_temperatura
 ```
 
-  <p align="justify"> Por lo que es posible observar del gráfico, muchos de los nombres seleccionados anteriormente, no volvieron a aparecer. Lo cual se justifica en base a lo mencionado en un inicio, sobre que existe una gran cantidad de exoplanetas de los cuales no se tiene la suficiente información, lo que no implica que dejan de ser buenos candidatos. Al considerar esta nueva variable podemos ver que el sistema planetario *TOI-700* y *Trappist* comienzan a tomar cierta relevancia ya que su nombre se comienza a repetir en 2 ocasiones. Por otro lado, dejando de lado nuestra misión es claro ver que el satelite Keppler es uno de los que más a detectado planetas extrasolares con buenas características</p>
+  <p align="justify"> Por lo que es posible observar del gráfico, muchos de los nombres seleccionados anteriormente, no volvieron a aparecer. Lo cual se justifica en base a lo mencionado en un inicio, sobre que existe una gran cantidad de exoplanetas de los cuales no se tiene la suficiente información, lo que no implica que dejan de ser buenos candidatos. Al considerar esta nueva variable podemos ver que el sistema planetario *TOI-700* y *TRAPPIST* comienzan a tomar cierta relevancia ya que su nombre se comienza a repetir en 2 ocasiones. Por otro lado, dejando de lado nuestra misión es claro ver que el satelite Keppler es uno de los que más a detectado planetas extrasolares con buenas características</p>
 
 ### 4. Moléculas esenciales para la vida en un exoplaneta habitable
 
@@ -197,16 +197,54 @@ kable(exoplanetas_con_agua,
       centering = TRUE,
       align = "rrrrrrr",
       options= list(pageLengtj = 11)) |> 
-      scroll_box(width = "85%",height = "500px") |> 
+  scroll_box(width = "100%",height = "500px") |>
+  kable_styling(full_width = T,font_size = 17) |> 
+  #row_spec(row = 0, background = "gold") |> 
   kable_minimal()
 ```
 
-  <p align="justify"> De la figura anterior, podemos ver que el nombre de los planetas *Trappist* vuelve a salir a la luz, ya que en todos ellos se encuentra presente el agua. Otro nombre interesante es el *Keppler-167*, que ya había sido visto en el gráfico de masas. A parte de estos casos, no se ve algún otro candidato que se repita. </p>
+  <p align="justify"> De la figura anterior, podemos ver que el nombre de los planetas *TRAPPIST* vuelve a salir a la luz, ya que en todos ellos se encuentra presente el agua. Otro nombre interesante es el *Keppler-167*, que ya había sido visto en el gráfico de masas. A parte de estos casos, no se ve algún otro candidato que se repita. </p>
 
 # *¿Ahora qué?*
 
-  <p align="justify"> Conclusiones sobre porque es bueno seguir buscando este exoplanetas y porque sería bueno poder llegar a ellos.</p>
+  <p align="justify"> Lo presentado en este trabajo, es solo una pincelada de todo lo que se sabe de los planetas extrasolares. Esta breve sinopsis de la información solo debe motivarnos a seguir en la búsqueda de nuevos mundos, para seguir aprendiendo cada día del universo que nos rodea. </p>
+  
+  <p align="justify"> Ahora si centramos nuestro enfoque en el objetivo de este trabajo, que para recordar era identificar a aquellos exoplanetas con ciertas características similares a las de la Tierra, con el fin de que en algún futuro no muy lejano seamos capaces de llegar hasta allá. ¿Se logró ese objetivo?, pese a la cantidad de datos a la que nos enfrentamos, se logró identificar, no solo un exoplaneta, sino que todo un sistema planetario, me refiero a sistema *TRAPPIST-1*, compuesto de 7 planetas de los cuales *TRAPPIST-1 d* es que destaca entre el resto, ya que, sobrevivió a todas las pruebas que presentamos. Aunque puede no parecer mucho solo 7 exoplanetas de casi 4000 que trae la base, sigue siendo relevante que se logrará identificar, ya que nos revela que si existen posibilidades de mover nuestro hogar a otro espacio en el universo. Además, no es solo en este trabajo que se le da la importancia a este sistema, la NASA en el año 2017, confirmo que el descubrimiento de TRAPPIST-1, fue un hito de gran importancia, ya que da la base para como buscar los próximos exoplanetas. En la imagen se puede ver porque serían buenos candidatos. </p>
+  
+```{r out.width="70%", fig.align="center", echo= FALSE, fig.cap="Esta tabla muestra, en la fila superior, los conceptos de los artistas de los siete planetas de TRAPPIST-1 con sus períodos orbitales, distancias desde su estrella, radios, masas, densidades y gravedad superficial en comparación con los de la Tierra. Crédito: NASA / JPL-Caltech"}
 
-  <p align="justify"> La idea es comparar con losresultados de algunas página oficial como la NASA.</p>
+knitr::include_graphics(here("figuras/exoplanetas-trappist1.jpg"))
+
+```
+  
+
   
 # *Referencias*
+
+####### 1. Exoplanet.eu. (1988–2021, noviembre 29). Exoplanet Catalog /Catalogue d’exoplanètes (semana del 08/10/2021) [Catálogo de todos los exoplanetas descubiertos hasta ahora (actualización semanal)]. Enciclopedia de planetas extrasolares http://exoplanet.eu. https://www.datastro.eu/explore/dataset/exoplaneteu_catalog-1/table/?sort=updated
+
+####### 2. H. Wickham. *ggplot2: Elegant Graphics for Data Analysis.* Springer-Verlag New York, 2016.
+
+####### 3. Hadley Wickham (2019). *stringr: Simple, Consistent Wrappers for Common String Operations.* R package version 1.4.0. https://CRAN.R-project.org/package=stringr
+
+####### 4. Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). *dplyr: A Grammar of Data Manipulation.* R package version 1.0.7. https://CRAN.R-project.org/package=dplyr
+
+####### 5. Hao Zhu (2021). k*ableExtra: Construct Complex Table with 'kable' and Pipe Syntax.* R package version 1.3.4. https://CRAN.R-project.org/package=kableExtra
+
+####### 6. Hiroaki Yutani (2021). *gghighlight: Highlight Lines and Points in 'ggplot2'.* R package version 0.3.2. https://CRAN.R-project.org/package=gghighlight
+
+####### 7. Kamil Slowikowski (2021). *ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'.* R package version 0.9.1. https://CRAN.R-project.org/package=ggrepel
+
+####### 8. Kirill Müller (2020). *here: A Simpler Way to Find Your Files.* R package version 1.0.1. https://CRAN.R-project.org/package=here
+
+####### 9. NASA. (s. f.-a). *Overview | what is an exoplanet?* Exoplanet Exploration: Planets Beyond our Solar System. Recuperado 1 de diciembre de 2021, de https://exoplanets.nasa.gov/what-is-an-exoplanet/overview/
+
+####### 10. NASA. (s. f.-b). *Terrestrial | planet types.* Exoplanet Exploration: Planets Beyond our Solar System. Recuperado 1 de diciembre de 2021, de https://exoplanets.nasa.gov/what-is-an-exoplanet/planet-types/terrestrial/
+
+####### 11. NASA. (2017, 21 febrero). *NASA telescope reveals largest batch of earth-size, habitable-zone planets around single star.* Exoplanet Exploration: Planets Beyond our Solar System. Recuperado 1 de diciembre de 2021, de https://exoplanets.nasa.gov/news/1419/nasa-telescope-reveals-largest-batch-of-earth-size-habitable-zone-planets-around-single-star/
+
+####### 12. Olivares Peréz, A. (2017, 9 octubre). *Tamaños y distancias en el Sistema Solar con respecto a nuestro planeta.* Saberes y Ciencias. Recuperado 1 de diciembre de 2021, de https://saberesyciencias.com.mx/2017/10/09/tamanos-distancias-sistema-solar-respecto-planeta/
+
+
+
+
